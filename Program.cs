@@ -1,7 +1,20 @@
 using Microsoft.EntityFrameworkCore;
 using MeuProjetoMvc.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using MeuProjetoMvc.Repositories;
 
 var builder = WebApplication.CreateBuilder(args); // esse já tem no arquivo
+// Configura o serviço de Autenticação por Cookies
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Usuario/Login";
+        options.AccessDeniedPath = "/Usuario/Login";
+        options.ExpireTimeSpan = TimeSpan.FromHours(2);
+    });
+
+    // Registra os Repositórios do sistema
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
 // 1. Obtém a string de conexão do appsettings / secrets
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -27,6 +40,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication(); // <-- Adicionado antes do Authorization
 app.UseAuthorization();
 
 app.MapStaticAssets();

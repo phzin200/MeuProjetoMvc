@@ -3,29 +3,100 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MeuProjetoMvc</title>
+    <title>@ViewData["Title"] - c_financas_pwii</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MeuProjetoMvc.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/c_financas_pwii.styles.css" asp-append-version="true" />
+        <style>
+        /* Estilos Globais - Tema Dark Premium */
+        body {
+            background-color: #000000;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Garante que a página ocupe 100% da altura */
+        }
+        
+        /* Navbar com efeito Glassmorphism */
+        .navbar-custom {
+            background-color: rgba(18, 18, 18, 0.8) !important;
+            backdrop-filter: blur(10px); /* Desfoque do fundo */
+            border-bottom: 1px solid #333 !important;
+        }
+
+        .footer {
+            background-color: #121212;
+            border-top: 1px solid #333 !important;
+            margin-top: auto; /* Empurra o footer para o final da página */
+        }
+
+        .hover-white {
+            transition: color 0.2s ease;
+        }
+        .hover-white:hover {
+            color: #ffffff !important;
+        }
+
+        /* Botão gradiente para Cadastrar/Destaques */
+        .btn-gradient {
+            background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%);
+            color: white;
+            border: none;
+            transition: opacity 0.3s ease;
+        }
+        .btn-gradient:hover {
+            opacity: 0.9;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark navbar-custom box-shadow mb-4 py-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MeuProjetoMvc</a>
+                <!-- Brand com estilo de logo -->
+                <a class="navbar-brand fw-bold text-white fs-4" asp-area="" asp-controller="Home" asp-action="Index">
+                    <span style="color: #928dab;">Gestão</span>Financeira
+                </a>
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav flex-grow-1 px-3">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-light hover-white px-3" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-light hover-white px-3" asp-area="" asp-controller="Home" asp-action="Privacy">Sobre</a>
                         </li>
+                    </ul>
+                    
+                    <ul class="navbar-nav align-items-center">
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item d-flex align-items-center me-3">
+                                <span class="text-light">Olá, <strong style="color: #928dab;">@User.Identity.Name</strong>!</span>
+                            </li>
+                            <li class="nav-item">
+                                <form asp-controller="Usuario" asp-action="Logout" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-4 fw-bold">Sair</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <!-- Estilo moderno para Login e Cadastro -->
+                            <li class="nav-item me-2 mb-2 mb-sm-0">
+                                <a class="btn btn-outline-light btn-sm rounded-pill px-4 fw-bold w-100" asp-controller="Usuario" asp-action="Login">Entrar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-gradient btn-sm rounded-pill px-4 fw-bold w-100 shadow-sm" asp-controller="Usuario" asp-action="Registro">Cadastrar</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -37,9 +108,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - MeuProjetoMvc - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="footer text-white">
+        <div class="col-md-6 text-center text-md-center mb-3 mb-md-0">
+            &copy; 2026 - <strong class="text-light">Gestão Financeira</strong> - Todos os direitos reservados.
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace c_financas_pwii.Models
+namespace MeuProjetoMvc.Models
 {
     public class RegistroViewModel
     {

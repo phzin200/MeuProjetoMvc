@@ -1,6 +1,3 @@
-using System.ComponentModel;
-using MeuProjetoMvc.Models;
-
 namespace MeuProjetoMvc.Models;
 
 public class Lancamento
@@ -18,10 +15,10 @@ public class Lancamento
 
     // Chaves Estrangeiras e Propriedades de Navegação
     public int CategoriaId { get; set; }
-    public CategoryAttribute Categoria { get; set; } = null!;
+    public Categoria Categoria { get; set; } = null!;
 
     public int ContaId { get; set; }
-    public Container Conta { get; set; } = null!;
+    public Conta Conta { get; set; } = null!;
 
     public int UsuarioId { get; set; }
     public Usuario Usuario { get; set; } = null!;
